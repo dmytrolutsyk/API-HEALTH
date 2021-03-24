@@ -16,7 +16,7 @@ app.listen(8080, () => {
   })
 
 // MARK- : Put a temp to data base
-app.put('/temperature', async function(req, res){
+app.put('/sensorsData', async function(req, res){
     try {
         const col = db.collection('temperature');
         let temperature = req.body.temperature;
@@ -38,7 +38,7 @@ app.put('/temperature', async function(req, res){
 
 
 /*GET all temp*/
-app.get('/temperatures/all', async function(req, res) {
+app.get('/sensorsData', async function(req, res) {
     try {
         const col = db.collection('temperature');
         let results = await col.find().sort({ _id: -1}).toArray();
@@ -55,18 +55,3 @@ app.get('/temperatures/all', async function(req, res) {
     }            
 });
 
-app.get('/annonces/all', async function(req, res) {
-    //var token = req.get('x-access-token');
-                try {
-                    const col = db.collection('annonces');
-                    let results = await col.find().sort({ _id: -1}).toArray();
-                    res.send({
-                        error: null,
-                        annonces: results
-                    });
-                } catch (err) {
-                    res.send({
-                        error: err
-                    });
-                }            
-});
