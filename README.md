@@ -9,7 +9,7 @@ installer npm
 
 # Pour récupérer le projet git : 
 ```
-$ git clone https://github.com/dmytrolutsyk/Projet-node-ESGI.git
+$ git clone https://github.com/dmytrolutsyk/API-HEALTH.git
 ```
 
 # Pour installer les dépendances :
@@ -38,22 +38,22 @@ Pour chaque route citée un exemple de requête curl sera fournie. Nous partons 
 	```
 	$ curl -X POST --header "Content-Type: application/json" --data "{\"username\":\"YOUR_USERNAME\", \"password\":\"YOUR_PASSWORD\"}" https://localhost:3000/signup
 	```
-* Route /annonces permettant de :
-	* Créer une annonce (put method, /annonces).
+* Route /courses permettant de :
+	* Créer une course (put method, /courses).
 		```
-		$ curl -X PUT --header "Content-Type: application/json" -H "Authorization: YOUR_TOKEN" --data "{\"content\":\"annonce content\"}" https://localhost:3000/annonces
+		$ curl -X PUT --header "Content-Type: application/json" -H "Authorization: YOUR_TOKEN" --data "{\"content\":\"course content\"}" https://localhost:3000/courses
 		```
-	* Récupérer toutes les annonces (get method) à partir de l'utilisateur (/annonces).
+	* Récupérer toutes les courses (get method) à partir de l'utilisateur (/courses).
 		```
-		$ curl -X GET --header "Content-Type: application/json" -H "Authorization: YOUR_TOKEN" https://localhost:3000/annonces
+		$ curl -X GET --header "Content-Type: application/json" -H "Authorization: YOUR_TOKEN" https://localhost:3000/courses
 		```
-	* Modifier une annonce (patch method) depuis son ID (/annonces/:idannonce).
+	* Modifier une course (patch method) depuis son ID (/courses/:id).
 		```
-		$ curl -X PATCH --header "Content-Type: application/json" -H "Authorization: YOUR_TOKEN" --data "{\"content\":\"annonce content\"}" https://localhost:3000/annonces/:idannonce
+		$ curl -X PATCH --header "Content-Type: application/json" -H "Authorization: YOUR_TOKEN" --data "{\"content\":\"course content\"}" https://localhost:3000/courses/:id
 		```
-	* Supprimer une annonce (delete method) depuis son ID (/annonces/:idannonce).
+	* Supprimer une course (delete method) depuis son ID (/courses/:id).
 		```
-		$ curl -X DELETE --header "Content-Type: application/json" -H "Authorization: YOUR_TOKEN" https://localhost:3000/annonces/:idannonce
+		$ curl -X DELETE --header "Content-Type: application/json" -H "Authorization: YOUR_TOKEN" https://localhost:3000/courses/:id
 		```
 
 # Sources
