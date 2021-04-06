@@ -65,4 +65,6 @@ Pour chaque route citée un exemple de requête curl sera fournie. Nous partons 
 
 # Collaborateurs
 
-* LUTSYK Dmytro.
+* LUTSYK Dmytro
+* VIDAL Léo
+* NOURRY Norman
