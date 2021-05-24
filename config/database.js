@@ -4,7 +4,6 @@
  * but since it's using a global promise its instance can be called in multiple location in the code
  */
 
-require('dotenv').config();
 import mongoose from 'mongoose';
 
 

@@ -8,7 +8,7 @@ const jwtKey = process.env.JWT_KEY || 'mySecretKey';
 class UserService {
 
     constructor() {
-        this.userModel = User;
+        this.userModel = new User().getInstance();
 
         this.createAccount = this.createAccount.bind(this);
         this.login = this.login.bind(this);
