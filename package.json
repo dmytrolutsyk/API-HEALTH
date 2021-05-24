@@ -1,32 +1,39 @@
 {
-  "name": "nodeJS",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "name": "nodejs-mongodb-api-starter",
+  "version": "0.1.0",
+  "description": "NodeJS API starter",
+  "main": "index.js",
   "dependencies": {
-    "babel-runtime": "^6.26.0",
-    "bcrypt": "^4.0.1",
-    "express": "^4.16.4",
+    "babel-preset-react": "^6.24.1",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.5.5",
-    "mongomem": "^0.1.9",
-    "multer": "^1.4.2",
-    "node": "^13.12.0"
+    "mongoose": "^5.9.9",
+    "dotenv": "^8.2.0",
+    "mongoose-unique-validator": "^2.0.3",
+    "bcryptjs": "^2.4.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "babel-loader": "^8.1.0",
+    "nodemon": "^2.0.4"
+  },
   "scripts": {
-    "start": "node server.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node index.js",
+    "dev:start": "clear; nodemon --exec babel-node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dmytrolutsyk/Projet-node-ESGI.git"
+    "url": "git+https://github.com/Salayna/NodeJs-MongoDB-API-Starter.git"
   },
-  "author": "",
+  "author": "Vidal",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dmytrolutsyk/Projet-node-ESGI/issues"
+    "url": "https://github.com/Salayna/NodeJs-MongoDB-API-Starter/issues"
   },
-  "homepage": "https://github.com/dmytrolutsyk/Projet-node-ESGI#readme"
+  "homepage": "https://github.com/Salayna/NodeJs-MongoDB-API-Starter#readme"
 }
