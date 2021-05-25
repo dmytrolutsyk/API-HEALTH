@@ -15,8 +15,13 @@ export default (app) => {
         res.send("Welcome to your API");
     })
 
-    app.post('/user', userController.createAccount);
-    app.post(`/api/user/createAccount`, userController.createAccount);
+    // User Part
+    app.post('/user/signUp', userController.createAccount);
+    app.post('/user/signIn', userController.login);
 
-    
+    // Course Part
+    app.get('/user/courses', userController.getCoursesOfUser);
+    app.post('/user/course', userController.createCourse);
+
+
 }

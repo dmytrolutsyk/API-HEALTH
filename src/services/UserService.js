@@ -121,6 +121,52 @@ class UserService {
         }
     }
 
+    async getCourseOfUser(username) {
+
+        try {
+            // Get user with username
+            let user = await this.userModel.findOne({username: username});
+            console.log(user);
+            if(user) {
+                let courses = user.runnings;
+                console.log(courses);
+                return {
+                    courses: courses,
+                    statusCode: 200
+                };
+            }else {
+                return {
+                    error: "User introuvable",
+                    statusCode: 404
+                };
+            }
+        } catch (error) {
+            console.log(error);
+            return {
+                error: error,
+                statusCode: 402
+            };
+        }
+    }
+
+    async createCourse(username, course){
+        try {
+            console.log("create course service course param :", course);
+            let userUpdated = await this.userModel.findOneAndUpdate({username: username}, {$push: {runnings: course} });
+            console.log("create course service updated user: ", userUpdated);
+            return {
+                user: userUpdated,
+                statusCode: 200
+            }
+        } catch (error) {
+            console.log(error);
+            return {
+                error: error,
+                statusCode: 402
+            };
+        }
+    }
+
 }
 
 export default UserService;

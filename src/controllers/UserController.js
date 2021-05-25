@@ -16,6 +16,8 @@ class UserController {
 
         this.createAccount = this.createAccount.bind(this);
         this.login = this.login.bind(this);
+        this.createCourse = this.createCourse.bind(this);
+        this.getCoursesOfUser = this.getCoursesOfUser.bind(this);
 
     }
 
@@ -32,6 +34,42 @@ class UserController {
         let response = await this.userService.createAccount(req.body);
         if (response.error) return res.status(response.statusCode).send(response);
         return res.status(201).send(response);
+    }
+
+    async createCourse(req, res) {
+        let username = await this.getUsernameOfToken(req, res);
+        let course = {
+            GPSCoordinate: req.body.GPSCoordinate,
+            runDistance: req.body.runDistance,
+            runTime: req.body.runTime
+        };
+        if(username !== 1) {
+           let response = await this.userService.createCourse(username, course);
+           console.log("post Course controller response : ", response);
+           return res.status(200).send(response);
+        }
+    }
+
+    async getCoursesOfUser(req, res) {
+        let username = await this.getUsernameOfToken(req, res);
+        if(username !== 1) {
+            let response = await this.userService.getCourseOfUser(username);
+            console.log("getCourse controller response : ", response);
+            return res.status(200).send(response);
+        }
+    }
+
+    // Extract and return username of request token if no token send error
+    async getUsernameOfToken(requete, response) {
+        let token = requete.headers['x-access-token'] || requete.headers['authorization'];
+        if (!token) response.status(401).send({error: "No Token found", statusCode: 401});
+        let username = await this.isAuthenticate(token);
+        // If not authenticate send error 401
+        if (!username) {
+            response.status(401).send({error: "Bad credentials", statusCode: 401});
+            return 1;
+        }
+        else return username;
     }
 
     async isAuthenticate(token) {

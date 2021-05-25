@@ -24,11 +24,11 @@ class Course {
                 required: true,
             },
             runDistance: {
-                // en nb de metre
+                // en nombre de metre
                 type: Number,
             },
             runTime: {
-                // en nb de seconde
+                // en nombre de seconde
                 type: Number
             }
 
