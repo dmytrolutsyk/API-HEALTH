@@ -41,7 +41,9 @@ class UserController {
         let course = {
             GPSCoordinate: req.body.GPSCoordinate,
             runDistance: req.body.runDistance,
-            runTime: req.body.runTime
+            runTime: req.body.runTime,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
         };
         if(username !== 1) {
            let response = await this.userService.createCourse(username, course);

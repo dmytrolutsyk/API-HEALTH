@@ -30,6 +30,14 @@ class Course {
             runTime: {
                 // en nombre de seconde
                 type: Number
+            },
+            startDate: {
+                // en nombre de seconde
+                type: Date
+            },
+            endDate: {
+                // en nombre de seconde
+                type: Date
             }
 
         }, { timestamps: true});
