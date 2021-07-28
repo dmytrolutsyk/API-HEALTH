@@ -38,6 +38,21 @@ class Course {
             endDate: {
                 // en nombre de seconde
                 type: Date
+            },
+            tempList: {
+                // Liste de tempétatures enrégistrés
+                type: [Number],
+                required: true
+            },
+            humidityList: {
+                // Liste de taux d'humidités enrégistrés
+                type: [Number],
+                required: true
+            },
+            pulseList: {
+                // Liste de BPM enrégistrés
+                type: [Number],
+                required: true
             }
 
         }, { timestamps: true});
