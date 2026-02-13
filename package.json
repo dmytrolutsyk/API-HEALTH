@@ -4,17 +4,17 @@
   "description": "NodeJS API starter",
   "main": "index.js",
   "dependencies": {
-    "babel-preset-react": "^6.24.1",
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.5",
+    "babel-preset-react": "^6.24.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.9",
     "dotenv": "^8.2.0",
-    "mongoose-unique-validator": "^2.0.3",
-    "bcryptjs": "^2.4.3"
+    "express": "^4.17.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.5",
+    "mongoose-unique-validator": "^4.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",

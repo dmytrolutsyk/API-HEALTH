@@ -16,8 +16,8 @@ class UserController {
 
         this.createAccount = this.createAccount.bind(this);
         this.login = this.login.bind(this);
-        this.createCourse = this.createCourse.bind(this);
-        this.getCoursesOfUser = this.getCoursesOfUser.bind(this);
+        this.createRentalProperty = this.createRentalProperty.bind(this);
+        this.getRentalPropertysOfUser = this.getRentalPropertysOfUser.bind(this);
 
     }
 
@@ -36,9 +36,9 @@ class UserController {
         return res.status(201).send(response);
     }
 
-    async createCourse(req, res) {
+    async createRentalProperty(req, res) {
         let username = await this.getUsernameOfToken(req, res);
-        let course = {
+        let rentalProperty = {
             GPSCoordinate: req.body.GPSCoordinate,
             runDistance: req.body.runDistance,
             runTime: req.body.runTime,
@@ -49,17 +49,17 @@ class UserController {
             pulseList: req.body.pulseList
         };
         if(username !== 1) {
-           let response = await this.userService.createCourse(username, course);
-           console.log("post Course controller response : ", response);
+           let response = await this.userService.createRentalProperty(username, rentalProperty);
+           console.log("post RentalProperty controller response : ", response);
            return res.status(200).send(response);
         }
     }
 
-    async getCoursesOfUser(req, res) {
+    async getRentalPropertysOfUser(req, res) {
         let username = await this.getUsernameOfToken(req, res);
         if(username !== 1) {
-            let response = await this.userService.getCourseOfUser(username);
-            console.log("getCourse controller response : ", response);
+            let response = await this.userService.getRentalPropertyOfUser(username);
+            console.log("getRentalProperty controller response : ", response);
             return res.status(200).send(response);
         }
     }

@@ -121,17 +121,17 @@ class UserService {
         }
     }
 
-    async getCourseOfUser(username) {
+    async getRentalPropertyOfUser(username) {
 
         try {
             // Get user with username
             let user = await this.userModel.findOne({username: username});
             console.log(user);
             if(user) {
-                let courses = user.runnings;
-                console.log(courses);
+                let rentalPropertys = user.runnings;
+                console.log(rentalPropertys);
                 return {
-                    courses: courses,
+                    rentalProperty: rentalProperty,
                     statusCode: 200
                 };
             }else {
@@ -149,11 +149,11 @@ class UserService {
         }
     }
 
-    async createCourse(username, course){
+    async createRentalProperty(username, rentalProperty){
         try {
-            console.log("create course service course param :", course);
-            let userUpdated = await this.userModel.findOneAndUpdate({username: username}, {$push: {runnings: course} });
-            console.log("create course service updated user: ", userUpdated);
+            console.log("create rentalProperty service rentalProperty param :", rentalProperty);
+            let userUpdated = await this.userModel.findOneAndUpdate({username: username}, {$push: {runnings: rentalProperty} });
+            console.log("create rentalProperty service updated user: ", userUpdated);
             return {
                 user: userUpdated,
                 statusCode: 200

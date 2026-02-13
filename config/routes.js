@@ -19,9 +19,9 @@ export default (app) => {
     app.post('/user/signUp', userController.createAccount);
     app.post('/user/signIn', userController.login);
 
-    // Course Part
-    app.get('/user/courses', userController.getCoursesOfUser);
-    app.post('/user/course', userController.createCourse);
+    // RentalProperty Part
+    app.get('/user/rentalPropertys', userController.getRentalPropertysOfUser);
+    app.post('/user/rentalProperty', userController.createRentalProperty);
 
 
 }

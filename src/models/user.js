@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
-import Course from "./course";
+import RentalProperty from "./rentalProperty";
 //import slugify from 'slugify';
 
 class User {
@@ -17,7 +17,7 @@ class User {
                 required: true,
             },
             runnings: {
-                type: [Course.initSchema()]
+                type: [RentalProperty.initSchema()]
             }
 
         }, { timestamps: true });

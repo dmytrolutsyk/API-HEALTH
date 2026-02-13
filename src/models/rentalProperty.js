@@ -2,9 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 //import slugify from 'slugify';
 
-class Course {
-
-
+class RentalProperty {
 
     static initSchema() {
         const GPSCoordinateSchema = new Schema({
@@ -18,7 +16,7 @@ class Course {
             }
         }, {timestamps: true});
 
-        const courseSchema = new Schema({
+        const rentalPropertySchema = new Schema({
             GPSCoordinate: {
                 type: [GPSCoordinateSchema],
                 required: true,
@@ -56,16 +54,16 @@ class Course {
             }
 
         }, { timestamps: true});
-        // courseSchema.plugin(uniqueValidator);
-        mongoose.model("course", courseSchema);
+        // rentalPropertySchema.plugin(uniqueValidator);
+        mongoose.model("rentalProperty", rentalPropertySchema);
 
-        return courseSchema;
+        return rentalPropertySchema;
     }
 
     getInstance() {
         this.initSchema();
-        return mongoose.model("course");
+        return mongoose.model("rentalProperty");
     }
 }
 
-export default Course;
+export default RentalProperty;
