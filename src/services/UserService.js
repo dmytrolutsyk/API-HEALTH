@@ -1,4 +1,5 @@
 import User from "../models/user";
+import RentalProperty from "../models/rentalProperty";
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -9,7 +10,6 @@ class UserService {
 
     constructor() {
         this.userModel = new User().getInstance();
-
         this.createAccount = this.createAccount.bind(this);
         this.login = this.login.bind(this);
 
@@ -128,7 +128,7 @@ class UserService {
             let user = await this.userModel.findOne({username: username});
             console.log(user);
             if(user) {
-                let rentalPropertys = user.runnings;
+                let rentalPropertys = user.rentalPropertys;
                 console.log(rentalPropertys);
                 return {
                     rentalProperty: rentalProperty,
@@ -152,7 +152,7 @@ class UserService {
     async createRentalProperty(username, rentalProperty){
         try {
             console.log("create rentalProperty service rentalProperty param :", rentalProperty);
-            let userUpdated = await this.userModel.findOneAndUpdate({username: username}, {$push: {runnings: rentalProperty} });
+            let userUpdated = await this.userModel.findOneAndUpdate({username: username}, {$push: {rentalPropertys: rentalProperty} });
             console.log("create rentalProperty service updated user: ", userUpdated);
             return {
                 user: userUpdated,

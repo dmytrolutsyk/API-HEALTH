@@ -16,7 +16,7 @@ class User {
                 type: String,
                 required: true,
             },
-            runnings: {
+            RentalPropertys: {
                 type: [RentalProperty.initSchema()]
             }
 
