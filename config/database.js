@@ -11,13 +11,15 @@ import mongoose from 'mongoose';
 class Connection {
   constructor() {
     try {
-        const url = process.env.MONGODB_URI || "mongodb+srv://admin:admin@cluster0.v8snp6n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-    console.log('Establish new connection with database');
-    console.log("using environment var : ", url);
+      const url = "mongodb+srv://admin:admin1234@cluster0.v8snp6n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+      console.log('Establish new connection with database');
+      console.log("using environment var : ", url);
 
-    //mongoose.Promise = global.Promise; -> Global Promise
-    mongoose.Promise = global.Promise;
-    mongoose.connect(url);
+      mongoose.Promise = global.Promise;
+      mongoose.connect(url)
+      .then(() => console.log("Connected to MongoDB!"))
+      .catch(err => console.error("Could not connect to MongoDB", err));
+
     } catch (error) {
         console.log(error);
     }

@@ -7,34 +7,36 @@ class RentalProperty {
     static initSchema() {
         const rentalPropertySchema = new Schema({
             title: { type: String, required: true, trim: true },
-            description: { type: String, required: true },
-            pricePerNight: { type: Number, required: true },
-            location: {
-                city: String,
-                address: String,
-                coordinates: {
-                type: [Number], // [longitude, latitude]
-                index: '2dsphere' 
-                }
-            },
-            details: {
-                guests: Number,
-                bedrooms: Number,
-                bathrooms: Number
-            },
-            amenities: [String],
-            images: [String],
-            owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-            
+        description: { type: String, required: true },
+        pricePerNight: { type: Number, required: true },
+        location: {
+            city: String,
+            address: String,
+            coordinates: {
+            type: [Number], // [longitude, latitude]
+            index: '2dsphere' 
+            }
+        },
+        details: {
+            guests: Number,
+            bedrooms: Number,
+            bathrooms: Number
+        },
+        amenities: [String],
+        images: [String],
+        owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+
         }, { timestamps: true});
         // rentalPropertySchema.plugin(uniqueValidator);
-        mongoose.model("rentalProperty", rentalPropertySchema);
+        if (!mongoose.models.rentalProperty) {
+            mongoose.model("rentalProperty", rentalPropertySchema);
+        }
 
         return rentalPropertySchema;
     }
 
     getInstance() {
-        this.initSchema();
+        RentalProperty.initSchema();
         return mongoose.model("rentalProperty");
     }
 }

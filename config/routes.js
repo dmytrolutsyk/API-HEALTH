@@ -18,6 +18,7 @@ export default (app) => {
     // User Part
     app.post('/user/signUp', userController.createAccount);
     app.post('/user/signIn', userController.login);
+    app.put('/user', userController.updateUser);
 
     // RentalProperty Part
     app.get('/user/rentalPropertys', userController.getRentalPropertysOfUser);
