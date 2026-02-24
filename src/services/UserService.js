@@ -106,6 +106,80 @@ class UserService {
         }
     }
 
+    async getRentalProperty(username, propertyId) {
+        try {
+            // Vérifier que la propriété appartient bien à l'utilisateur connecté
+            const user = await this.userModel.findOne({
+                username,
+                rentalProperties: propertyId
+            });
+
+            if (!user) {
+                return { error: "Annonce introuvable pour cet utilisateur", statusCode: 404 };
+            }
+
+            const property = await this.rentalModel.findOne({
+                _id: propertyId,
+                owner: user._id
+            });
+
+            if (!property) {
+                return { error: "Annonce introuvable", statusCode: 404 };
+            }
+
+            return { error: null, property, statusCode: 200 };
+        } catch (error) {
+            console.error('Get rental property error:', error);
+            return { error: "Erreur lors de la récupération de l'annonce", statusCode: 500 };
+        }
+    }
+
+    async updateRentalProperty(username, propertyId, updates) {
+        try {
+            // Vérifier que la propriété appartient bien à l'utilisateur connecté
+            const user = await this.userModel.findOne({
+                username,
+                rentalProperties: propertyId
+            });
+
+            if (!user) {
+                return { error: "Annonce introuvable pour cet utilisateur", statusCode: 404 };
+            }
+
+            const allowedFields = [
+                'title',
+                'description',
+                'pricePerNight',
+                'location',
+                'details',
+                'amenities',
+                'images'
+            ];
+
+            const updateData = {};
+            allowedFields.forEach((field) => {
+                if (Object.prototype.hasOwnProperty.call(updates, field)) {
+                    updateData[field] = updates[field];
+                }
+            });
+
+            const property = await this.rentalModel.findOneAndUpdate(
+                { _id: propertyId, owner: user._id },
+                { $set: updateData },
+                { new: true, runValidators: true }
+            );
+
+            if (!property) {
+                return { error: "Annonce introuvable", statusCode: 404 };
+            }
+
+            return { error: null, property, statusCode: 200 };
+        } catch (error) {
+            console.error('Update rental property error:', error);
+            return { error: "Erreur lors de la mise à jour de l'annonce", statusCode: 500 };
+        }
+    }
+
     async updateUser(username, updates) {
         try {
             const allowedFields = [
@@ -158,6 +232,59 @@ class UserService {
             }
 
             return { error: "Erreur lors de la mise à jour", statusCode: 500 };
+        }
+    }
+
+    async deleteUser(username) {
+        try {
+            const user = await this.userModel.findOneAndDelete({ username });
+
+            if (!user) {
+                return { error: "User introuvable", statusCode: 404 };
+            }
+
+            // Optionnel : supprimer aussi toutes les annonces liées à ce user
+            await this.rentalModel.deleteMany({ owner: user._id });
+
+            return { error: null, statusCode: 200 };
+        } catch (error) {
+            console.error('Delete user error:', error);
+            return { error: "Erreur lors de la suppression de l'utilisateur", statusCode: 500 };
+        }
+    }
+
+    async deleteRentalProperty(username, propertyId) {
+        try {
+            // Vérifier que la propriété appartient bien à l'utilisateur connecté
+            const user = await this.userModel.findOne({
+                username,
+                rentalProperties: propertyId
+            });
+
+            if (!user) {
+                return { error: "Annonce introuvable pour cet utilisateur", statusCode: 404 };
+            }
+
+            // Supprimer l'annonce de la collection RentalProperty
+            const deleted = await this.rentalModel.findOneAndDelete({
+                _id: propertyId,
+                owner: user._id
+            });
+
+            if (!deleted) {
+                return { error: "Annonce introuvable", statusCode: 404 };
+            }
+
+            // Retirer la référence de l'utilisateur
+            await this.userModel.updateOne(
+                { _id: user._id },
+                { $pull: { rentalProperties: propertyId } }
+            );
+
+            return { error: null, statusCode: 200 };
+        } catch (error) {
+            console.error('Delete rental property error:', error);
+            return { error: "Erreur lors de la suppression de l'annonce", statusCode: 500 };
         }
     }
 }

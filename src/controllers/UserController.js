@@ -12,7 +12,11 @@ class UserController {
         this.login = this.login.bind(this);
         this.createRentalProperty = this.createRentalProperty.bind(this);
         this.getRentalPropertysOfUser = this.getRentalPropertysOfUser.bind(this);
+        this.getRentalProperty = this.getRentalProperty.bind(this);
         this.updateUser = this.updateUser.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
+        this.updateRentalProperty = this.updateRentalProperty.bind(this);
+        this.deleteRentalProperty = this.deleteRentalProperty.bind(this);
     }
 
     async login(req, res) {
@@ -83,6 +87,44 @@ class UserController {
         }
     }
 
+    async getRentalProperty(req, res) {
+        const username = await this.getUsernameOfToken(req, res);
+        if (!username) return;
+
+        const { id } = req.params;
+
+        try {
+            const response = await this.userService.getRentalProperty(username, id);
+
+            if (response.error) {
+                return res.status(response.statusCode || 400).json(response);
+            }
+
+            return res.status(200).json(response.property);
+        } catch (error) {
+            return res.status(500).json({ message: "Erreur lors de la récupération de l'annonce." });
+        }
+    }
+
+    async updateRentalProperty(req, res) {
+        const username = await this.getUsernameOfToken(req, res);
+        if (!username) return;
+
+        const { id } = req.params;
+
+        try {
+            const response = await this.userService.updateRentalProperty(username, id, req.body);
+
+            if (response.error) {
+                return res.status(response.statusCode || 400).json(response);
+            }
+
+            return res.status(200).json(response.property);
+        } catch (error) {
+            return res.status(500).json({ message: "Erreur lors de la mise à jour de l'annonce." });
+        }
+    }
+
     async updateUser(req, res) {
         const username = await this.getUsernameOfToken(req, res);
         if (!username) return;
@@ -97,6 +139,42 @@ class UserController {
             return res.status(200).json(response.user);
         } catch (error) {
             return res.status(500).json({ message: "Erreur lors de la mise à jour du profil." });
+        }
+    }
+
+    async deleteUser(req, res) {
+        const username = await this.getUsernameOfToken(req, res);
+        if (!username) return;
+
+        try {
+            const response = await this.userService.deleteUser(username);
+
+            if (response.error) {
+                return res.status(response.statusCode || 400).json(response);
+            }
+
+            return res.status(200).json({ message: "Utilisateur supprimé avec succès" });
+        } catch (error) {
+            return res.status(500).json({ message: "Erreur lors de la suppression de l'utilisateur." });
+        }
+    }
+
+    async deleteRentalProperty(req, res) {
+        const username = await this.getUsernameOfToken(req, res);
+        if (!username) return;
+
+        const { id } = req.params;
+
+        try {
+            const response = await this.userService.deleteRentalProperty(username, id);
+
+            if (response.error) {
+                return res.status(response.statusCode || 400).json(response);
+            }
+
+            return res.status(200).json({ message: "Annonce supprimée avec succès" });
+        } catch (error) {
+            return res.status(500).json({ message: "Erreur lors de la suppression de l'annonce." });
         }
     }
 

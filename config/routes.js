@@ -19,10 +19,14 @@ export default (app) => {
     app.post('/user/signUp', userController.createAccount);
     app.post('/user/signIn', userController.login);
     app.put('/user', userController.updateUser);
+    app.delete('/user', userController.deleteUser);
 
     // RentalProperty Part
     app.get('/user/rentalPropertys', userController.getRentalPropertysOfUser);
+    app.get('/user/rentalProperty/:id', userController.getRentalProperty);
     app.post('/user/rentalProperty', userController.createRentalProperty);
+    app.put('/user/rentalProperty/:id', userController.updateRentalProperty);
+    app.delete('/user/rentalProperty/:id', userController.deleteRentalProperty);
 
 
 }
